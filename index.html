@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade de Ciências - Recuperação 8º Ano</title>
     <style>
+
+
+
+GitHubGoogle Drive
+
+Computadores na nuvem
+Novo
+
+atividade_ciencias_atualizada.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade de Ciências - Recuperação 8º Ano</title>
+    <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
         body {
             background-color: #d0d0d0;
@@ -232,7 +248,7 @@
 /* ============================================================
    URL DO GOOGLE APPS SCRIPT
    ============================================================ */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_dL3RV624aGGMnzK8AXHdfVPAqo3-EjvhR1wrkV3Ie-1MrpVwuT14qQfRh_j4Zdc/exec";
+const GOOGLE_SCRIPT_URL = "SEU_URL_DE_DEPLOY_DO_APPS_SCRIPT_AQUI"; // ATUALIZE COM O URL DEPLOY DO SEU SCRIPT
 
 /* ============================================================
    ALUNOS
@@ -439,15 +455,7 @@ const questions = [
     }
 ];
 
-/* ============================================================
-   GABARITO (apenas múltipla escolha)
-   ============================================================ */
-const correctAnswersMap = {};
-questions.filter(q => q.type === "multipla").forEach(q => {
-    q.options.forEach((opt, idx) => {
-        if (opt.correct) correctAnswersMap[`q${q.id}`] = String.fromCharCode(65 + idx);
-    });
-});
+
 
 /* ============================================================
    LÓGICA DE RENDERIZAÇÃO E FUNCIONAMENTO
@@ -461,21 +469,7 @@ function showResult(text, type) {
 }
 function hideResult() { document.getElementById("resultMessage").style.display = "none"; }
 
-async function sendToGoogle(data) {
-    try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            cache: "no-cache",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
-        showResult("Sucesso! Suas respostas foram enviadas.", "success");
-    } catch (e) {
-        console.error(e);
-        showResult("Erro ao enviar. Tente novamente.", "error");
-    }
-}
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // Data atual
@@ -647,11 +641,10 @@ document.getElementById("submitBtn").onclick = async () => {
     let correct = 0;
     let allAnswered = true;
     for (let q of multiplas) {
-        const selected = document.querySelector(`#q${q.id} .option.selected`);
-        if (!selected) { allAnswered = false; break; }
-        const letter = selected.dataset.letter;
-        data[`q${q.id}`] = letter;
-        if (letter === correctAnswersMap[`q${q.id}`]) correct++;
+            const selected = document.querySelector(`#q${q.id} .option.selected`);
+            if (!selected) { allAnswered = false; break; }
+            const letter = selected.dataset.letter;
+            data[`q${q.id}`] = letter;
     }
     if (!allAnswered) { showResult("Responda todas as questões de múltipla escolha antes de enviar.", "error"); return; }
 
@@ -667,11 +660,18 @@ document.getElementById("submitBtn").onclick = async () => {
         data[`dissertativa${disCount}`] = ta.value.trim();
     }
 
-    data.finalScore = correct;
-    data.percentage = (correct / multiplas.length) * 100;
-
-    showResult(`Calculando nota... você acertou ${correct}/${multiplas.length} nas questões objetivas. Enviando...`, "success");
-    await sendToGoogle(data);
+    // A lógica de cálculo de nota e acertos será feita no Apps Script
+    showResult(`Enviando suas respostas...`, "success");
+    google.script.run.withSuccessHandler(function(response) {
+        if (response.success) {
+            showResult("Sucesso! Suas respostas foram enviadas.", "success");
+        } else {
+            showResult("Erro ao enviar. Tente novamente.", "error");
+        }
+    }).withFailureHandler(function(error) {
+        console.error("Erro no Apps Script:", error);
+        showResult("Erro ao enviar. Verifique a conexão ou tente novamente.", "error");
+    }).doPost(JSON.stringify(data));
 };
 </script>
 </body>

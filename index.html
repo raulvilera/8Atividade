@@ -5,22 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade de Ciências - Recuperação 8º Ano</title>
     <style>
-
-
-
-GitHubGoogle Drive
-
-Computadores na nuvem
-Novo
-
-atividade_ciencias_atualizada.html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atividade de Ciências - Recuperação 8º Ano</title>
-    <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
         body {
             background-color: #d0d0d0;
@@ -82,7 +66,7 @@ atividade_ciencias_atualizada.html
             letter-spacing: 1px;
         }
 
-        /* Questões múltipla escolha - ATUALIZADO COM DEGRADÊ VERDE E LARANJA */
+        /* Questões múltipla escolha */
         .question-container {
             padding: 25px;
             margin-bottom: 25px;
@@ -127,7 +111,7 @@ atividade_ciencias_atualizada.html
         }
         .option::before { content: attr(data-letter) "."; font-weight: bold; margin-right: 8px; flex-shrink: 0; }
 
-        /* Questões dissertativas - ATUALIZADO COM DEGRADÊ VERDE E LARANJA */
+        /* Questões dissertativas */
         .dissertativa-container {
             padding: 25px;
             margin-bottom: 25px;
@@ -189,8 +173,9 @@ atividade_ciencias_atualizada.html
             flex: 1;
         }
         #submitBtn { background: linear-gradient(145deg, #28a745, #218838); color: white; }
-        #submitBtn:hover { background: linear-gradient(145deg, #218838, #1e7e34); transform: translateY(-2px); }
-        #submitBtn:active { transform: translateY(1px); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
+        #submitBtn:hover:not(:disabled) { background: linear-gradient(145deg, #218838, #1e7e34); transform: translateY(-2px); }
+        #submitBtn:active:not(:disabled) { transform: translateY(1px); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
+        #submitBtn:disabled { opacity: 0.5; cursor: not-allowed; }
         #clearBtn { background: linear-gradient(145deg, #fd7e14, #e36a00); color: white; }
         #clearBtn:hover { background: linear-gradient(145deg, #e36a00, #cc5f00); transform: translateY(-2px); }
         #clearBtn:active { transform: translateY(1px); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
@@ -248,7 +233,16 @@ atividade_ciencias_atualizada.html
 /* ============================================================
    URL DO GOOGLE APPS SCRIPT
    ============================================================ */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVy9z8Kj867cne1O6k5bWNGo7ghW33oxc5o9NPwZGgEgcBkIUrgcKMRhZ12MSQj6pV/exec"; // ATUALIZE COM O URL DEPLOY DO SEU SCRIPT
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVy9z8Kj867cne1O6k5bWNGo7ghW33oxc5o9NPwZGgEgcBkIUrgcKMRhZ12MSQj6pV/exec";
+
+/* ============================================================
+   GABARITO LOCAL (deve ser idêntico ao correctAnswers do Apps Script)
+   ============================================================ */
+const gabarito = {
+    1: 'B', 2: 'B', 3: 'C',
+    4: 'B', 5: 'C', 6: 'B',
+    7: 'B', 8: 'B', 9: 'B', 10: 'B'
+};
 
 /* ============================================================
    ALUNOS
@@ -325,7 +319,7 @@ const students = {
 };
 
 /* ============================================================
-   QUESTÕES (com imagens atualizadas)
+   QUESTÕES
    ============================================================ */
 const questions = [
     {
@@ -455,10 +449,8 @@ const questions = [
     }
 ];
 
-
-
 /* ============================================================
-   LÓGICA DE RENDERIZAÇÃO E FUNCIONAMENTO
+   UTILITÁRIOS
    ============================================================ */
 function showResult(text, type) {
     const res = document.getElementById("resultMessage");
@@ -469,17 +461,18 @@ function showResult(text, type) {
 }
 function hideResult() { document.getElementById("resultMessage").style.display = "none"; }
 
-
-
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
     // Data atual
     const now = new Date();
     document.getElementById("currentDate").value = now.toLocaleDateString("pt-BR");
 
     const container = document.getElementById("questionsContainer");
-    const select = document.getElementById("studentName");
-    const num = document.getElementById("studentNumber");
-    const grade = document.getElementById("studentGrade");
+    const select    = document.getElementById("studentName");
+    const num       = document.getElementById("studentNumber");
+    const grade     = document.getElementById("studentGrade");
 
     // Popular select de alunos
     Object.keys(students).forEach(g => {
@@ -495,15 +488,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Contadores para numeração sequencial
-    let mcCount = 0;   // múltipla escolha
-    let disCount = 0;  // dissertativa
-
-    // Separadores
+    let mcCount  = 0;
+    let disCount = 0;
     let lastType = null;
 
     questions.forEach(q => {
 
-        // Separador de seção quando muda de tipo
+        // Separadores de seção
         if (lastType !== null && lastType !== q.type) {
             const div = document.createElement("div");
             div.className = "section-divider";
@@ -526,13 +517,11 @@ document.addEventListener("DOMContentLoaded", () => {
             block.className = "question-container";
             block.id = "q" + q.id;
 
-            // Enunciado
             const p = document.createElement("p");
             p.className = "question";
             p.innerHTML = `<strong>${mcCount}.</strong> ${q.question}`;
             block.appendChild(p);
 
-            // Imagem entre enunciado e alternativas
             if (q.image) {
                 const img = document.createElement("img");
                 img.src = q.image;
@@ -542,7 +531,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 block.appendChild(img);
             }
 
-            // Alternativas
             const optBox = document.createElement("div");
             optBox.className = "options";
             q.options.forEach((opt, idx) => {
@@ -580,7 +568,6 @@ document.addEventListener("DOMContentLoaded", () => {
             p.innerHTML = `<strong>Q${disCount}.</strong> ${q.question}`;
             block.appendChild(p);
 
-            // Imagem entre enunciado e campo de resposta
             if (q.image) {
                 const img = document.createElement("img");
                 img.src = q.image;
@@ -614,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hideResult();
     };
 
-    // Limpar
+    // Limpar respostas
     document.getElementById("clearBtn").onclick = () => {
         document.querySelectorAll(".option.selected").forEach(o => o.classList.remove("selected"));
         document.querySelectorAll(".resposta-field").forEach(t => t.value = "");
@@ -623,55 +610,86 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ============================================================
-   ENVIO FINAL
+   ENVIO FINAL  ← BLOCO CORRIGIDO
    ============================================================ */
 document.getElementById("submitBtn").onclick = async () => {
     hideResult();
 
+    // Validar seleção de aluno
     const select = document.getElementById("studentName");
-    if (!select.value) { showResult("Selecione seu nome.", "error"); return; }
+    if (!select.value) {
+        showResult("⚠️ Selecione seu nome antes de enviar.", "error");
+        return;
+    }
 
     const [studentNumber, studentGrade, studentName] = select.value.split("|");
     const data = { studentName, studentNumber, studentGrade };
 
-    const multiplas = questions.filter(q => q.type === "multipla");
+    const multiplas     = questions.filter(q => q.type === "multipla");
     const dissertativas = questions.filter(q => q.type === "dissertativa");
 
-    // Verificar múltipla escolha
-    let correct = 0;
-    let allAnswered = true;
+    // ── Coletar e validar múltipla escolha ──────────────────
+    let acertos = 0;
     for (let q of multiplas) {
-            const selected = document.querySelector(`#q${q.id} .option.selected`);
-            if (!selected) { allAnswered = false; break; }
-            const letter = selected.dataset.letter;
-            data[`q${q.id}`] = letter;
+        const selected = document.querySelector(`#q${q.id} .option.selected`);
+        if (!selected) {
+            showResult("⚠️ Responda todas as questões de múltipla escolha antes de enviar.", "error");
+            return;
+        }
+        const letter = selected.dataset.letter;
+        data[`q${q.id}`] = letter;
+        if (letter === gabarito[q.id]) acertos++;
     }
-    if (!allAnswered) { showResult("Responda todas as questões de múltipla escolha antes de enviar.", "error"); return; }
 
-    // Coletar dissertativas
+    // ── Coletar e validar dissertativas ─────────────────────
     let disCount = 0;
     for (let q of dissertativas) {
         disCount++;
         const ta = document.getElementById(`resp_d${disCount}`);
         if (!ta || ta.value.trim() === "") {
-            showResult(`Responda a questão dissertativa ${disCount} antes de enviar.`, "error");
+            showResult(`⚠️ Responda a questão dissertativa ${disCount} antes de enviar.`, "error");
             return;
         }
         data[`dissertativa${disCount}`] = ta.value.trim();
     }
 
-    // A lógica de cálculo de nota e acertos será feita no Apps Script
-    showResult(`Enviando suas respostas...`, "success");
-    google.script.run.withSuccessHandler(function(response) {
-        if (response.success) {
-            showResult("Sucesso! Suas respostas foram enviadas.", "success");
-        } else {
-            showResult("Erro ao enviar. Tente novamente.", "error");
-        }
-    }).withFailureHandler(function(error) {
-        console.error("Erro no Apps Script:", error);
-        showResult("Erro ao enviar. Verifique a conexão ou tente novamente.", "error");
-    }).doPost(JSON.stringify(data));
+    // ── Calcular nota ────────────────────────────────────────
+    data.finalScore = acertos;
+    data.percentage = ((acertos / multiplas.length) * 100).toFixed(1) + '%';
+
+    // ── Enviar via fetch() ───────────────────────────────────
+    // Nota: 'no-cors' é necessário quando o HTML está hospedado fora do Apps Script.
+    // Com esse modo o dado CHEGA normalmente ao script, mas a resposta JSON
+    // não pode ser lida pelo browser (limitação de segurança do CORS).
+    // Para confirmar registros, verifique Apps Script → Execuções.
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    showResult("⏳ Enviando suas respostas...", "success");
+
+    try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method:  "POST",
+            mode:    "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body:    JSON.stringify(data)
+        });
+
+        // Com 'no-cors' não é possível ler o corpo da resposta,
+        // mas se chegou aqui sem exceção o envio foi realizado.
+        showResult(
+            `✅ Respostas enviadas com sucesso! Obrigado, ${studentName.split(" ")[0]}. ` +
+            `Você acertou ${acertos} de ${multiplas.length} questões objetivas (${data.percentage}).`,
+            "success"
+        );
+
+        // Manter botão desabilitado para evitar duplo envio
+        submitBtn.textContent = "✅ Enviado";
+
+    } catch (err) {
+        console.error("Erro no envio:", err);
+        submitBtn.disabled = false;
+        showResult("❌ Erro ao enviar. Verifique sua conexão e tente novamente.", "error");
+    }
 };
 </script>
 </body>

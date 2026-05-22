@@ -12,7 +12,7 @@
             min-height: 100vh;
             background-image: linear-gradient(145deg, #c0c0c0, #e0e0e0);
         }
-        .container { max-width: 800px; margin: 0 auto; position: relative; }
+        .container { max-width: 1100px; margin: 0 auto; position: relative; }
         .container::before {
             content: '';
             position: absolute;
@@ -34,7 +34,7 @@
             border: 1px solid #b8d4f0;
         }
         .school-name { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #004085; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
-        .student-info { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; align-items: center; }
+        .student-info { display: grid; grid-template-columns: 3fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; align-items: center; }
         @media (max-width: 768px) { .student-info { grid-template-columns: 1fr; gap: 15px; } }
         .info-group { display: flex; align-items: center; }
         .name-group { grid-column: 1 / 2; }
@@ -47,7 +47,6 @@
         }
         .activity-title { font-size: 20px; font-weight: bold; margin: 20px 0; text-align: center; color: #004085; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
 
-        /* Seção separadora */
         .section-divider {
             text-align: center;
             margin: 10px 0 25px 0;
@@ -66,7 +65,6 @@
             letter-spacing: 1px;
         }
 
-        /* Questões múltipla escolha */
         .question-container {
             padding: 25px;
             margin-bottom: 25px;
@@ -111,7 +109,6 @@
         }
         .option::before { content: attr(data-letter) "."; font-weight: bold; margin-right: 8px; flex-shrink: 0; }
 
-        /* Questões dissertativas */
         .dissertativa-container {
             padding: 25px;
             margin-bottom: 25px;
@@ -159,7 +156,6 @@
         }
         .resposta-field:focus { outline: none; border-color: #28a745; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1), 0 0 0 2px rgba(40,167,69,0.2); }
 
-        /* Botões */
         .buttons {
             display: flex; justify-content: space-between;
             margin-top: 20px; position: relative; z-index: 2; gap: 15px;
@@ -180,7 +176,6 @@
         #clearBtn:hover { background: linear-gradient(145deg, #e36a00, #cc5f00); transform: translateY(-2px); }
         #clearBtn:active { transform: translateY(1px); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
 
-        /* Resultado */
         .result {
             margin-top: 20px; padding: 15px; border-radius: 8px;
             display: none; box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
@@ -193,7 +188,6 @@
 <body>
 <div class="container">
 
-    <!-- CABEÇALHO -->
     <div class="header">
         <div class="school-name">E.E. PROFª WANDA MASCAGNI DE SÁ</div>
         <div class="student-info">
@@ -217,10 +211,8 @@
         <div class="activity-title">ATIVIDADE DE CIÊNCIAS (RECUPERAÇÃO 8º ANO) — 2º BIMESTRE</div>
     </div>
 
-    <!-- QUESTÕES -->
     <div id="questionsContainer"></div>
 
-    <!-- BOTÕES -->
     <div class="buttons">
         <button id="submitBtn">Enviar Respostas</button>
         <button id="clearBtn">Limpar Respostas</button>
@@ -230,23 +222,14 @@
 </div>
 
 <script>
-/* ============================================================
-   URL DO GOOGLE APPS SCRIPT
-   ============================================================ */
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxuYOH2aY4UXN59QoChrfHoHyn5GxxpHGUYYm8C6sp3qv0NYe3ZXpxsanuqN3KnC6m9/exec";
 
-/* ============================================================
-   GABARITO LOCAL (deve ser idêntico ao correctAnswers do Apps Script)
-   ============================================================ */
 const gabarito = {
     1: 'B', 2: 'B', 3: 'C',
     4: 'B', 5: 'C', 6: 'B',
     7: 'B', 8: 'B', 9: 'B', 10: 'B'
 };
 
-/* ============================================================
-   ALUNOS
-   ============================================================ */
 const students = {
     "8º Ano A": [
         { number: "2",  name: "ANA BEATRIZ RODRIGUES OLIVEIRA" },
@@ -318,9 +301,6 @@ const students = {
     ]
 };
 
-/* ============================================================
-   QUESTÕES
-   ============================================================ */
 const questions = [
     {
         id: 1, type: "multipla",
@@ -449,9 +429,6 @@ const questions = [
     }
 ];
 
-/* ============================================================
-   UTILITÁRIOS
-   ============================================================ */
 function showResult(text, type) {
     const res = document.getElementById("resultMessage");
     res.textContent = text;
@@ -461,11 +438,7 @@ function showResult(text, type) {
 }
 function hideResult() { document.getElementById("resultMessage").style.display = "none"; }
 
-/* ============================================================
-   INICIALIZAÇÃO
-   ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
-    // Data atual
     const now = new Date();
     document.getElementById("currentDate").value = now.toLocaleDateString("pt-BR");
 
@@ -474,7 +447,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const num       = document.getElementById("studentNumber");
     const grade     = document.getElementById("studentGrade");
 
-    // Popular select de alunos
     Object.keys(students).forEach(g => {
         const group = document.createElement("optgroup");
         group.label = g;
@@ -487,14 +459,11 @@ document.addEventListener("DOMContentLoaded", () => {
         select.appendChild(group);
     });
 
-    // Contadores para numeração sequencial
     let mcCount  = 0;
     let disCount = 0;
     let lastType = null;
 
     questions.forEach(q => {
-
-        // Separadores de seção
         if (lastType !== null && lastType !== q.type) {
             const div = document.createElement("div");
             div.className = "section-divider";
@@ -510,7 +479,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         lastType = q.type;
 
-        /* ---------- MÚLTIPLA ESCOLHA ---------- */
         if (q.type === "multipla") {
             mcCount++;
             const block = document.createElement("div");
@@ -551,7 +519,6 @@ document.addEventListener("DOMContentLoaded", () => {
             container.appendChild(block);
         }
 
-        /* ---------- DISSERTATIVA ---------- */
         else if (q.type === "dissertativa") {
             disCount++;
             const block = document.createElement("div");
@@ -593,7 +560,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Seleção de aluno
     select.onchange = () => {
         if (!select.value) { num.value = ""; grade.value = ""; return; }
         const [n, g] = select.value.split("|");
@@ -601,7 +567,6 @@ document.addEventListener("DOMContentLoaded", () => {
         hideResult();
     };
 
-    // Limpar respostas
     document.getElementById("clearBtn").onclick = () => {
         document.querySelectorAll(".option.selected").forEach(o => o.classList.remove("selected"));
         document.querySelectorAll(".resposta-field").forEach(t => t.value = "");
@@ -609,13 +574,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 });
 
-/* ============================================================
-   ENVIO FINAL  ← BLOCO CORRIGIDO
-   ============================================================ */
 document.getElementById("submitBtn").onclick = async () => {
     hideResult();
 
-    // Validar seleção de aluno
     const select = document.getElementById("studentName");
     if (!select.value) {
         showResult("⚠️ Selecione seu nome antes de enviar.", "error");
@@ -628,7 +589,6 @@ document.getElementById("submitBtn").onclick = async () => {
     const multiplas     = questions.filter(q => q.type === "multipla");
     const dissertativas = questions.filter(q => q.type === "dissertativa");
 
-    // ── Coletar e validar múltipla escolha ──────────────────
     let acertos = 0;
     for (let q of multiplas) {
         const selected = document.querySelector(`#q${q.id} .option.selected`);
@@ -641,7 +601,6 @@ document.getElementById("submitBtn").onclick = async () => {
         if (letter === gabarito[q.id]) acertos++;
     }
 
-    // ── Coletar e validar dissertativas ─────────────────────
     let disCount = 0;
     for (let q of dissertativas) {
         disCount++;
@@ -653,15 +612,9 @@ document.getElementById("submitBtn").onclick = async () => {
         data[`dissertativa${disCount}`] = ta.value.trim();
     }
 
-    // ── Calcular nota ────────────────────────────────────────
     data.finalScore = acertos;
     data.percentage = ((acertos / multiplas.length) * 100).toFixed(1) + '%';
 
-    // ── Enviar via fetch() ───────────────────────────────────
-    // Nota: 'no-cors' é necessário quando o HTML está hospedado fora do Apps Script.
-    // Com esse modo o dado CHEGA normalmente ao script, mas a resposta JSON
-    // não pode ser lida pelo browser (limitação de segurança do CORS).
-    // Para confirmar registros, verifique Apps Script → Execuções.
     const submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = true;
     showResult("⏳ Enviando suas respostas...", "success");
@@ -674,15 +627,12 @@ document.getElementById("submitBtn").onclick = async () => {
             body:    JSON.stringify(data)
         });
 
-        // Com 'no-cors' não é possível ler o corpo da resposta,
-        // mas se chegou aqui sem exceção o envio foi realizado.
         showResult(
             `✅ Respostas enviadas com sucesso! Obrigado, ${studentName.split(" ")[0]}. ` +
             `Você acertou ${acertos} de ${multiplas.length} questões objetivas (${data.percentage}).`,
             "success"
         );
 
-        // Manter botão desabilitado para evitar duplo envio
         submitBtn.textContent = "✅ Enviado";
 
     } catch (err) {

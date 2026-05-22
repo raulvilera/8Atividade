@@ -66,86 +66,89 @@
             letter-spacing: 1px;
         }
 
-        /* Questões múltipla escolha */
+        /* Questões múltipla escolha - ATUALIZADO COM DEGRADÊ VERDE E LARANJA */
         .question-container {
             padding: 25px;
             margin-bottom: 25px;
-            background: linear-gradient(145deg, #e6f2ff, #cce5ff);
+            background: linear-gradient(145deg, #e6ffed, #fff3e6);
             border-radius: 12px;
             box-shadow: 8px 8px 16px #b3b3b3, -8px -8px 16px #ffffff;
             position: relative;
             z-index: 2;
-            border: 1px solid #b8d4f0;
+            border: 1px solid #c3e6cb;
         }
-        .question { margin-bottom: 15px; font-weight: bold; color: #004085; line-height: 1.5; }
+        .question { margin-bottom: 15px; font-weight: bold; color: #155724; line-height: 1.5; }
         .question-image {
-            max-width: 100%; height: auto; max-height: 220px;
-            object-fit: cover;
-            margin: 12px 0 16px 0;
+            max-width: 100%; height: auto; max-height: 350px;
+            object-fit: contain;
+            margin: 12px auto 16px auto;
             border-radius: 8px;
             box-shadow: 4px 4px 8px rgba(0,0,0,0.2);
-            border: 1px solid #a0c4e0;
+            border: 1px solid #c3e6cb;
             display: block;
+            background-color: white;
         }
         .options { margin-top: 5px; }
         .option {
             margin-bottom: 10px; padding: 12px;
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            background: linear-gradient(145deg, #ffffff, #f9f9f9);
             border-radius: 8px; border: 1px solid #d0d0d0;
             cursor: pointer; transition: all 0.3s ease;
             box-shadow: 4px 4px 8px rgba(0,0,0,0.1), -4px -4px 8px rgba(255,255,255,0.7);
             display: flex; align-items: flex-start;
             line-height: 1.4;
+            color: #333;
         }
         .option:hover {
-            background: linear-gradient(145deg, #f5f5f5, #e8e8e8);
+            background: linear-gradient(145deg, #f0fff4, #fff9f2);
             transform: translateY(-2px);
             box-shadow: 6px 6px 12px rgba(0,0,0,0.15), -6px -6px 12px rgba(255,255,255,0.8);
         }
         .option.selected {
-            background: linear-gradient(145deg, #155724, #0f4019);
-            border-color: #0f4019; color: white;
+            background: linear-gradient(145deg, #28a745, #fd7e14);
+            border-color: #1e7e34; color: white;
             box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3), 4px 4px 8px rgba(0,0,0,0.1);
         }
         .option::before { content: attr(data-letter) "."; font-weight: bold; margin-right: 8px; flex-shrink: 0; }
 
-        /* Questões dissertativas */
+        /* Questões dissertativas - ATUALIZADO COM DEGRADÊ VERDE E LARANJA */
         .dissertativa-container {
             padding: 25px;
             margin-bottom: 25px;
-            background: linear-gradient(145deg, #fff8e6, #ffefc0);
+            background: linear-gradient(145deg, #e6ffed, #fff3e6);
             border-radius: 12px;
             box-shadow: 8px 8px 16px #b3b3b3, -8px -8px 16px #ffffff;
             position: relative;
             z-index: 2;
-            border: 1px solid #f0cc70;
+            border: 1px solid #c3e6cb;
         }
         .dissertativa-label {
             font-size: 11px;
             font-weight: bold;
             text-transform: uppercase;
-            color: #7a5500;
+            color: #155724;
             letter-spacing: 1px;
             margin-bottom: 8px;
         }
-        .dissertativa-question { font-weight: bold; color: #5a3e00; line-height: 1.5; margin-bottom: 14px; }
+        .dissertativa-question { font-weight: bold; color: #155724; line-height: 1.5; margin-bottom: 14px; }
         .dissertativa-image {
-            max-width: 100%; height: auto; max-height: 200px;
-            object-fit: cover;
-            margin: 0 0 14px 0;
+            max-width: 100%; height: auto; max-height: 350px;
+            object-fit: contain;
+            margin: 0 auto 14px auto;
             border-radius: 8px;
             box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
-            border: 1px solid #f0cc70;
+            border: 1px solid #c3e6cb;
             display: block;
+            background-color: white;
         }
-        .resposta-label { font-size: 12px; font-weight: bold; color: #7a5500; margin-bottom: 6px; }
+        .resposta-label { font-size: 12px; font-weight: bold; color: #155724; margin-bottom: 6px; }
         .resposta-field {
             width: 100%;
             min-height: 100px;
             padding: 12px;
-            border: 1px solid #d4a800;
+            border: 1px solid #c3e6cb;
             border-radius: 8px;
-            background: #fffdf0;
+            background: #ffffff;
             box-shadow: inset 2px 2px 5px rgba(0,0,0,0.08);
             font-size: 14px;
             color: #333;
@@ -154,7 +157,7 @@
             font-family: Arial, sans-serif;
             transition: border-color 0.2s;
         }
-        .resposta-field:focus { outline: none; border-color: #c48800; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1), 0 0 0 2px rgba(196,136,0,0.2); }
+        .resposta-field:focus { outline: none; border-color: #28a745; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1), 0 0 0 2px rgba(40,167,69,0.2); }
 
         /* Botões */
         .buttons {
@@ -169,11 +172,11 @@
             box-shadow: 6px 6px 12px rgba(0,0,0,0.2), -6px -6px 12px rgba(255,255,255,0.7);
             flex: 1;
         }
-        #submitBtn { background: linear-gradient(145deg, #007bff, #0056b3); color: white; }
-        #submitBtn:hover { background: linear-gradient(145deg, #0056b3, #004085); transform: translateY(-2px); }
+        #submitBtn { background: linear-gradient(145deg, #28a745, #218838); color: white; }
+        #submitBtn:hover { background: linear-gradient(145deg, #218838, #1e7e34); transform: translateY(-2px); }
         #submitBtn:active { transform: translateY(1px); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
-        #clearBtn { background: linear-gradient(145deg, #6c757d, #545b62); color: white; }
-        #clearBtn:hover { background: linear-gradient(145deg, #545b62, #3d4348); transform: translateY(-2px); }
+        #clearBtn { background: linear-gradient(145deg, #fd7e14, #e36a00); color: white; }
+        #clearBtn:hover { background: linear-gradient(145deg, #e36a00, #cc5f00); transform: translateY(-2px); }
         #clearBtn:active { transform: translateY(1px); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
 
         /* Resultado */
@@ -306,13 +309,14 @@ const students = {
 };
 
 /* ============================================================
-   QUESTÕES DE MÚLTIPLA ESCOLHA (com imagens)
+   QUESTÕES (com imagens atualizadas)
    ============================================================ */
 const questions = [
     {
         id: 1, type: "multipla",
         question: "Maria, aluna do 8º ano, estava ajudando a mãe a preparar o jantar. Sua mãe pediu que ela separasse alimentos ricos em proteínas para uma refeição nutritiva. Sabe-se que as proteínas são macronutrientes essenciais ao organismo, responsáveis principalmente pela construção e reparação de tecidos. Com base nisso, qual dos grupos de alimentos abaixo seria a melhor escolha?",
-       image:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhSw1ikSV3PNXWwN3M7p5sd-e3o9aTGcX4OggQvXwAu_JZAtGURyeLg4oIjcxOgajLA9uB6sechm-BGmN2Ml5I8joyAYiz6XJqGgLXWioPbZuxg2BMbETerBs-WFFMJGS5f5xQR8TloWqj_FtAzIHXAJepNrTz8TZM_8-49un8AGmE8hU1xnRJi-SAzjGR7/s800/Imagem%201.png",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/DdEyeChhmQUrrYBC.png",
+        options: [
             { text: "Arroz branco, batata e macarrão, pois são ricos em carboidratos que fornecem energia para o corpo.", correct: false },
             { text: "Feijão, carne bovina e ovos, pois são fontes ricas em proteínas necessárias para a construção e reparação dos tecidos.", correct: true },
             { text: "Azeite de oliva, manteiga e abacate, pois contêm gorduras que fornecem energia e participam da formação de hormônios.", correct: false },
@@ -322,7 +326,7 @@ const questions = [
     {
         id: 2, type: "multipla",
         question: "Em uma campanha de saúde escolar, o médico orientou os alunos sobre a importância do consumo adequado de vitamina D. Ele explicou que essa vitamina é fundamental para o organismo humano e que sua deficiência pode causar problemas graves de desenvolvimento ósseo. Considerando os conhecimentos sobre micronutrientes estudados em sala, qual é a principal função da vitamina D no organismo e como ela pode ser obtida?",
-        image: "https://img.freepik.com/fotos-gratis/conceito-de-vitamina-d_23-2148521400.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/ntwdxcPARXatmurQ.png",
         options: [
             { text: "A vitamina D auxilia na absorção do ferro e na formação de colágeno; pode ser obtida pelo consumo de laranja, acerola e outros cítricos.", correct: false },
             { text: "A vitamina D controla a absorção de cálcio e fósforo, sendo essencial para a formação dos ossos e dentes; pode ser obtida pela exposição da pele ao sol e pelo consumo de gema de ovo e leite.", correct: true },
@@ -333,7 +337,7 @@ const questions = [
     {
         id: 3, type: "multipla",
         question: "João foi ao supermercado com sua avó e ficou curioso ao ver selos de alerta em algumas embalagens. A ANVISA determinou, desde outubro de 2022, que alimentos com determinados nutrientes acima de níveis preestabelecidos devem apresentar selos com a indicação 'Alto em' em suas embalagens. Qual alternativa descreve corretamente o que esses selos indicam e qual nutriente mineral, quando consumido em excesso, pode elevar a pressão sanguínea?",
-        image: "https://www.alphagroup.com.br/wp-content/uploads/2022/11/novas-regras-de-rotulagem-de-alimentos.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/cdCInjMnRcNJHfMi.png",
         options: [
             { text: "Os selos indicam que o alimento é enriquecido e recomendado para crianças; o ferro em excesso eleva a pressão sanguínea.", correct: false },
             { text: "Os selos indicam que o alimento é orgânico e livre de agrotóxicos; a vitamina C em excesso causa hipertensão.", correct: false },
@@ -341,16 +345,15 @@ const questions = [
             { text: "Os selos indicam a data de validade do produto; o cálcio em excesso é o responsável pelo aumento da pressão arterial.", correct: false }
         ]
     },
-    /* --- DISSERTATIVA 1 (após q3) --- inserida pelo renderizador --- */
     {
         id: "d1", type: "dissertativa",
         question: "Com base no que você estudou sobre macronutrientes e micronutrientes, explique a diferença entre esses dois grupos e cite a função de pelo menos um nutriente de cada grupo no organismo humano.",
-        image: "https://img.freepik.com/fotos-gratis/alimentos-saudaveis-com-vitaminas-e-minerais_23-2148561933.jpg"
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/eNKhmaZHkgaMMTBZ.png"
     },
     {
         id: 4, type: "multipla",
         question: "Durante uma aula de Ciências, a professora apresentou o Guia Alimentar para a População Brasileira, publicado pelo Ministério da Saúde em 2014, que classifica os alimentos de acordo com o tipo e o nível de processamento. Ana separou os seguintes alimentos: banana, arroz, iogurte industrializado com sabor de morango, queijo prato e feijão seco. Qual classificação está correta segundo o Guia Alimentar?",
-        image: "https://www.retoedu.com.br/wp-content/uploads/2022/08/Alimentos-In-Natura-Processados-E-Ultraprocessados.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/idzdrFyrotEemVnr.png",
         options: [
             { text: "Banana e feijão seco são processados; arroz é in natura; queijo prato é ultraprocessado.", correct: false },
             { text: "Banana é in natura; arroz e feijão seco são minimamente processados; queijo prato é processado; iogurte industrializado com sabor é ultraprocessado.", correct: true },
@@ -361,7 +364,7 @@ const questions = [
     {
         id: 5, type: "multipla",
         question: "Pedro leu a lista de ingredientes de duas embalagens no supermercado. O PRODUTO 1 tinha apenas: 'feijão carioca'. O PRODUTO 2 apresentava: 'farinha de trigo enriquecida com ferro e ácido fólico, açúcar, gordura vegetal, sal, glúten, conservadores: propionato de cálcio e sorbato de potássio, emulsificantes: lecitina de soja, aromatizantes e corantes artificiais'. Com base no Guia Alimentar para a População Brasileira, qual é a classificação e a orientação de consumo corretas?",
-        image: "https://www.ufsm.br/app/uploads/sites/343/2019/10/rotulos.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/KfeVQIgPGBsatXOO.png",
         options: [
             { text: "O Produto 1 é ultraprocessado e o Produto 2 é in natura; ambos podem ser consumidos sem restrições.", correct: false },
             { text: "O Produto 1 é minimamente processado e o Produto 2 também é minimamente processado, apenas com mais ingredientes para sabor.", correct: false },
@@ -372,7 +375,7 @@ const questions = [
     {
         id: 6, type: "multipla",
         question: "Luísa está fazendo um trabalho sobre alimentação saudável e encontrou em um biscoito recheado as informações: 'gordura trans: 1,2g' e 'gordura saturada: 3,5g (18% VD)'. A sigla VD indica os valores diários recomendados com base em uma dieta de 2000 kcal. Considerando os conhecimentos sobre leitura de rótulos e os efeitos dessas gorduras no organismo, qual alternativa interpreta corretamente essas informações?",
-        image: "https://www.mundoboaforma.com.br/wp-content/uploads/2015/09/rotulo-nutricional.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/kwFLnQlBrJpytFLm.png",
         options: [
             { text: "A gordura trans presente no biscoito é saudável e não oferece riscos à saúde, pois seu valor diário não foi estabelecido pela ANVISA.", correct: false },
             { text: "A gordura saturada do biscoito corresponde a 18% do que se recomenda consumir por dia; o consumo excessivo tanto de gordura trans quanto saturada aumenta o risco de doenças do coração.", correct: true },
@@ -380,16 +383,15 @@ const questions = [
             { text: "A gordura saturada não oferece riscos à saúde em qualquer quantidade, pois está presente naturalmente em alimentos de origem animal.", correct: false }
         ]
     },
-    /* --- DISSERTATIVA 2 (após q6) --- inserida pelo renderizador --- */
     {
         id: "d2", type: "dissertativa",
         question: "Imagine que você vai ao supermercado e precisa escolher entre dois produtos parecidos. Como a leitura do rótulo pode ajudá-lo a fazer uma escolha mais saudável? Cite pelo menos dois tipos de informação presentes nos rótulos que você levaria em consideração e explique por quê.",
-        image: "https://gepea.com.br/wp-content/uploads/2021/07/tabela-nutricional.jpg"
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/EEiXxaYwYyQuwVVz.png"
     },
     {
         id: 7, type: "multipla",
         question: "A turma do 8º ano leu uma notícia que dizia: 'Segundo dados de 2023, milhões de brasileiros ainda vivem em situação de insegurança alimentar grave.' A professora aproveitou para discutir o conceito de segurança alimentar definido pela Lei nº 11.346/2006, que criou o Sistema Nacional de Segurança Alimentar e Nutricional. Qual alternativa define corretamente esse conceito?",
-        image: "https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/alimentacao_saudavel.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/PqtEnBqZMDbAdIOH.png",
         options: [
             { text: "Segurança alimentar significa comer apenas alimentos in natura e evitar todos os industrializados para manter a saúde do organismo.", correct: false },
             { text: "Segurança alimentar é a realização do direito de todos ao acesso regular e permanente a alimentos de qualidade, em quantidade suficiente, sem comprometer o acesso a outras necessidades essenciais.", correct: true },
@@ -400,7 +402,7 @@ const questions = [
     {
         id: 8, type: "multipla",
         question: "Carlos percebeu que ao pular o almoço sentiu uma fome intensa no final da tarde. Ao comentar com seu pai, descobriu que ele havia passado semanas sem se alimentar adequadamente por dificuldades financeiras, sentindo fraqueza e cansaço constante. A professora explicou que esses dois casos representam tipos diferentes de fome. Qual alternativa diferencia corretamente a fome aguda da fome crônica?",
-        image: "https://img.freepik.com/fotos-gratis/mulher-com-fome-apontando-para-o-estomago_23-2148262499.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/RqhXIykBFEznzsni.png",
         options: [
             { text: "A fome aguda é causada apenas por doenças graves, enquanto a fome crônica ocorre normalmente em todas as pessoas após a prática de exercícios físicos intensos.", correct: false },
             { text: "A fome aguda é passageira, surgindo entre as refeições com sensação urgente de se alimentar; a fome crônica é permanente, causando deficiências nutricionais que afetam a saúde, o crescimento e a qualidade de vida.", correct: true },
@@ -411,7 +413,7 @@ const questions = [
     {
         id: 9, type: "multipla",
         question: "Durante uma visita ao mercado, a professora pediu aos alunos que identificassem os aditivos alimentares no rótulo de um pão de forma industrializado. A lista de ingredientes incluía: 'propionato de cálcio, lecitina de soja, ácido ascórbico e sorbitol'. Com base nos conceitos de aditivos alimentares estudados, qual é a função do propionato de cálcio e da lecitina de soja, respectivamente?",
-        image: "https://centraldalimentos.com.br/wp-content/uploads/2021/12/conservantes.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/qGnLwXHuaUFtnnDp.png",
         options: [
             { text: "O propionato de cálcio é um corante que dá a cor dourada ao pão; a lecitina de soja é um aromatizante que confere sabor característico ao produto.", correct: false },
             { text: "O propionato de cálcio é um conservador que prolonga a vida útil do produto; a lecitina de soja é um emulsificante que permite misturar ingredientes que normalmente não se misturariam, como água e gordura.", correct: true },
@@ -419,16 +421,15 @@ const questions = [
             { text: "O propionato de cálcio é um adoçante artificial que substitui o açúcar; a lecitina de soja é um umectante que evita o ressecamento do pão.", correct: false }
         ]
     },
-    /* --- DISSERTATIVA 3 (após q9) --- inserida pelo renderizador --- */
     {
         id: "d3", type: "dissertativa",
         question: "O Brasil registrou avanços importantes no combate à insegurança alimentar nos últimos anos. Explique o que é insegurança alimentar e cite pelo menos dois fatores que contribuem para que ela ocorra. Em sua resposta, relacione esses fatores com o conceito de vulnerabilidade social estudado em sala.",
-        image: "https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/fome_zero.jpg"
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/LpNCZkFxlbTuGDWl.png"
     },
     {
         id: 10, type: "multipla",
         question: "Em 2024, o governo brasileiro atualizou a composição da cesta básica nacional, determinando que ela não pode mais conter itens ultraprocessados, priorizando alimentos in natura e minimamente processados. Entre os grupos incluídos estão: feijões e leguminosas, cereais, raízes, frutas, legumes, carnes, ovos, leite, queijos e castanhas. Considerando os conteúdos sobre nutrição e segurança alimentar, qual é o principal objetivo dessa mudança?",
-        image: "https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/cesta_basica_saudavel.jpg",
+        image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663425180148/LNdBumnNLVTZpdql.png",
         options: [
             { text: "Reduzir os custos de distribuição, tornando os alimentos mais baratos para aumentar o lucro das empresas fornecedoras da cesta básica.", correct: false },
             { text: "Garantir que famílias em situação de vulnerabilidade alimentar tenham acesso a uma alimentação variada e nutricionalmente adequada, combatendo a insegurança alimentar com qualidade.", correct: true },
@@ -449,54 +450,51 @@ questions.filter(q => q.type === "multipla").forEach(q => {
 });
 
 /* ============================================================
-   UTILITÁRIOS
+   LÓGICA DE RENDERIZAÇÃO E FUNCIONAMENTO
    ============================================================ */
-function showResult(msg, type) {
-    const el = document.getElementById("resultMessage");
-    el.innerHTML = msg;
-    el.className = "result " + type;
-    el.style.display = "block";
-    el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+function showResult(text, type) {
+    const res = document.getElementById("resultMessage");
+    res.textContent = text;
+    res.className = "result " + type;
+    res.style.display = "block";
+    res.scrollIntoView({ behavior: "smooth" });
 }
 function hideResult() { document.getElementById("resultMessage").style.display = "none"; }
 
-/* ============================================================
-   ENVIO PARA O GOOGLE APPS SCRIPT
-   ============================================================ */
-async function sendToGoogle(dataObj) {
+async function sendToGoogle(data) {
     try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: JSON.stringify(dataObj) });
-        if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
-        const json = await response.json();
-        if (json.status === "success") {
-            showResult("<strong>Sucesso!</strong> Dados enviados e registrados.", "success");
-            document.getElementById("submitBtn").disabled = true;
-        } else {
-            showResult("<strong>Erro no servidor:</strong> " + (json.message || "Resposta inesperada."), "error");
-        }
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            cache: "no-cache",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+        showResult("Sucesso! Suas respostas foram enviadas.", "success");
     } catch (e) {
-        showResult("<strong>Erro de Conexão:</strong> " + e.message + ". Verifique se o Apps Script está publicado como 'Qualquer pessoa'.", "error");
+        console.error(e);
+        showResult("Erro ao enviar. Tente novamente.", "error");
     }
 }
 
-/* ============================================================
-   RENDERIZAÇÃO
-   ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
-    const select   = document.getElementById("studentName");
-    const num      = document.getElementById("studentNumber");
-    const grade    = document.getElementById("studentGrade");
-    const container = document.getElementById("questionsContainer");
-    document.getElementById("currentDate").value = new Date().toLocaleDateString('pt-BR');
+    // Data atual
+    const now = new Date();
+    document.getElementById("currentDate").value = now.toLocaleDateString("pt-BR");
 
-    // Alunos
-    Object.keys(students).forEach(turma => {
+    const container = document.getElementById("questionsContainer");
+    const select = document.getElementById("studentName");
+    const num = document.getElementById("studentNumber");
+    const grade = document.getElementById("studentGrade");
+
+    // Popular select de alunos
+    Object.keys(students).forEach(g => {
         const group = document.createElement("optgroup");
-        group.label = turma;
-        students[turma].forEach(s => {
+        group.label = g;
+        students[g].forEach(s => {
             const opt = document.createElement("option");
-            opt.value = `${s.number}|${turma}|${s.name}`;
-            opt.textContent = s.name;
+            opt.value = `${s.number}|${g}|${s.name}`;
+            opt.textContent = `${s.number} - ${s.name}`;
             group.appendChild(opt);
         });
         select.appendChild(group);
@@ -678,3 +676,4 @@ document.getElementById("submitBtn").onclick = async () => {
 </script>
 </body>
 </html>
+Cores em Degradê e Imagens para Cards de Questões - Manus

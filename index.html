@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade de Ciências - Recuperação 8º Ano</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body {
+            background-color: #d0d0d0;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: linear-gradient(145deg, #c0c0c0, #e0e0e0);
+        }
+        .container { max-width: 800px; margin: 0 auto; position: relative; }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            background-color: #d0d0d0;
+            z-index: 1;
+            border-radius: 20px;
+            box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ededed;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(145deg, #e6f2ff, #cce5ff);
+            border-radius: 12px;
+            box-shadow: 8px 8px 16px #b3b3b3, -8px -8px 16px #ffffff;
+            position: relative;
+            z-index: 2;
+            border: 1px solid #b8d4f0;
+        }
+        .school-name { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #004085; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .student-info { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; align-items: center; }
+        @media (max-width: 768px) { .student-info { grid-template-columns: 1fr; gap: 15px; } }
+        .info-group { display: flex; align-items: center; }
+        .name-group { grid-column: 1 / 2; }
+        .info-label { margin-right: 5px; font-weight: bold; color: #004085; white-space: nowrap; }
+        .info-field {
+            padding: 8px; border: 1px solid #a0c4e0; border-radius: 4px;
+            background-color: #f8fbff;
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
+            text-align: center; width: 100%;
+        }
+        .activity-title { font-size: 20px; font-weight: bold; margin: 20px 0; text-align: center; color: #004085; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+
+        /* Seção separadora */
+        .section-divider {
+            text-align: center;
+            margin: 10px 0 25px 0;
+            position: relative;
+            z-index: 2;
+        }
+        .section-divider span {
+            display: inline-block;
+            background: linear-gradient(145deg, #004085, #0056b3);
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 10px 30px;
+            border-radius: 30px;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.2), -2px -2px 6px rgba(255,255,255,0.5);
+            letter-spacing: 1px;
+        }
+
+        /* Questões múltipla escolha */
+        .question-container {
+            padding: 25px;
+            margin-bottom: 25px;
+            background: linear-gradient(145deg, #e6f2ff, #cce5ff);
+            border-radius: 12px;
+            box-shadow: 8px 8px 16px #b3b3b3, -8px -8px 16px #ffffff;
+            position: relative;
+            z-index: 2;
+            border: 1px solid #b8d4f0;
+        }
+        .question { margin-bottom: 15px; font-weight: bold; color: #004085; line-height: 1.5; }
+        .question-image {
+            max-width: 100%; height: auto; max-height: 220px;
+            object-fit: cover;
+            margin: 12px 0 16px 0;
+            border-radius: 8px;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.2);
+            border: 1px solid #a0c4e0;
+            display: block;
+        }
+        .options { margin-top: 5px; }
+        .option {
+            margin-bottom: 10px; padding: 12px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 8px; border: 1px solid #d0d0d0;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1), -4px -4px 8px rgba(255,255,255,0.7);
+            display: flex; align-items: flex-start;
+            line-height: 1.4;
+        }
+        .option:hover {
+            background: linear-gradient(145deg, #f5f5f5, #e8e8e8);
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 12px rgba(0,0,0,0.15), -6px -6px 12px rgba(255,255,255,0.8);
+        }
+        .option.selected {
+            background: linear-gradient(145deg, #155724, #0f4019);
+            border-color: #0f4019; color: white;
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3), 4px 4px 8px rgba(0,0,0,0.1);
+        }
+        .option::before { content: attr(data-letter) "."; font-weight: bold; margin-right: 8px; flex-shrink: 0; }
+
+        /* Questões dissertativas */
+        .dissertativa-container {
+            padding: 25px;
+            margin-bottom: 25px;
+            background: linear-gradient(145deg, #fff8e6, #ffefc0);
+            border-radius: 12px;
+            box-shadow: 8px 8px 16px #b3b3b3, -8px -8px 16px #ffffff;
+            position: relative;
+            z-index: 2;
+            border: 1px solid #f0cc70;
+        }
+        .dissertativa-label {
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #7a5500;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .dissertativa-question { font-weight: bold; color: #5a3e00; line-height: 1.5; margin-bottom: 14px; }
+        .dissertativa-image {
+            max-width: 100%; height: auto; max-height: 200px;
+            object-fit: cover;
+            margin: 0 0 14px 0;
+            border-radius: 8px;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
+            border: 1px solid #f0cc70;
+            display: block;
+        }
+        .resposta-label { font-size: 12px; font-weight: bold; color: #7a5500; margin-bottom: 6px; }
+        .resposta-field {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 1px solid #d4a800;
+            border-radius: 8px;
+            background: #fffdf0;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.08);
+            font-size: 14px;
+            color: #333;
+            resize: vertical;
+            line-height: 1.6;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.2s;
+        }
+        .resposta-field:focus { outline: none; border-color: #c48800; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1), 0 0 0 2px rgba(196,136,0,0.2); }
+
+        /* Botões */
+        .buttons {
+            display: flex; justify-content: space-between;
+            margin-top: 20px; position: relative; z-index: 2; gap: 15px;
+        }
+        @media (max-width: 480px) { .buttons { flex-direction: column; } }
+        button {
+            padding: 12px 25px; border: none; border-radius: 8px;
+            cursor: pointer; font-size: 16px; font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 6px 6px 12px rgba(0,0,0,0.2), -6px -6px 12px rgba(255,255,255,0.7);
+            flex: 1;
+        }
+        #submitBtn { background: linear-gradient(145deg, #007bff, #0056b3); color: white; }
+        #submitBtn:hover { background: linear-gradient(145deg, #0056b3, #004085); transform: translateY(-2px); }
+        #submitBtn:active { transform: translateY(1px); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
+        #clearBtn { background: linear-gradient(145deg, #6c757d, #545b62); color: white; }
+        #clearBtn:hover { background: linear-gradient(145deg, #545b62, #3d4348); transform: translateY(-2px); }
+        #clearBtn:active { transform: translateY(1px); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2); }
+
+        /* Resultado */
+        .result {
+            margin-top: 20px; padding: 15px; border-radius: 8px;
+            display: none; box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+            position: relative; z-index: 2;
+        }
+        .success { background: linear-gradient(145deg, #d4edda, #c3e6cb); border: 1px solid #c3e6cb; color: #155724; }
+        .error { background: linear-gradient(145deg, #f8d7da, #f5c6cb); border: 1px solid #f5c6cb; color: #721c24; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- CABEÇALHO -->
+    <div class="header">
+        <div class="school-name">E.E. PROFª WANDA MASCAGNI DE SÁ</div>
+        <div class="student-info">
+            <div class="info-group name-group">
+                <span class="info-label">NOME:</span>
+                <select id="studentName" class="info-field"><option value="">Selecione seu nome</option></select>
+            </div>
+            <div class="info-group">
+                <span class="info-label">Nº:</span>
+                <input type="text" id="studentNumber" class="info-field" readonly>
+            </div>
+            <div class="info-group">
+                <span class="info-label">SÉRIE:</span>
+                <input type="text" id="studentGrade" class="info-field" readonly>
+            </div>
+            <div class="info-group">
+                <span class="info-label">DATA:</span>
+                <input type="text" id="currentDate" class="info-field" readonly>
+            </div>
+        </div>
+        <div class="activity-title">ATIVIDADE DE CIÊNCIAS (RECUPERAÇÃO 8º ANO) — 2º BIMESTRE</div>
+    </div>
+
+    <!-- QUESTÕES -->
+    <div id="questionsContainer"></div>
+
+    <!-- BOTÕES -->
+    <div class="buttons">
+        <button id="submitBtn">Enviar Respostas</button>
+        <button id="clearBtn">Limpar Respostas</button>
+    </div>
+
+    <div id="resultMessage" class="result"></div>
+</div>
+
+<script>
+/* ============================================================
+   URL DO GOOGLE APPS SCRIPT
+   ============================================================ */
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_dL3RV624aGGMnzK8AXHdfVPAqo3-EjvhR1wrkV3Ie-1MrpVwuT14qQfRh_j4Zdc/exec";
+
+/* ============================================================
+   ALUNOS
+   ============================================================ */
+const students = {
+    "8º Ano A": [
+        { number: "2",  name: "ANA BEATRIZ RODRIGUES OLIVEIRA" },
+        { number: "3",  name: "ANA CLARA SOUSA DA COSTA" },
+        { number: "4",  name: "ANA VICTORIA RAGACINI DE OLIVEIRA" },
+        { number: "5",  name: "ARTHUR DAVI DE SOUZA FERNANDES" },
+        { number: "6",  name: "EDUARDA ALVES DE SOUZA" },
+        { number: "7",  name: "EMANUEL ALVES OLIVEIRA" },
+        { number: "8",  name: "ESTHER CRISTINE SILVA RIBEIRO" },
+        { number: "9",  name: "EVELLYN YASMIN TAVARES SILVA" },
+        { number: "10", name: "FELIPE DE SOUZA RODRIGUES" },
+        { number: "11", name: "FERNANDA POLACHINI MAYER GOMES MARQUES" },
+        { number: "12", name: "GEOVANNA VITORIA ROCHA ABDALA" },
+        { number: "15", name: "GUSTAVO AUGUSTO TOMBOLO REIS" },
+        { number: "17", name: "IGOR MARTINS PEREIRA" },
+        { number: "18", name: "IZABELLY VITORIA DE CARVALHO RODRIGUES SETH" },
+        { number: "21", name: "KAROLAYNE DOS SANTOS BISSORNIA" },
+        { number: "22", name: "KAUANNY APARECIDA MALAQUIAS LIMA" },
+        { number: "23", name: "KÉTHILY NAYARA DA SILVA" },
+        { number: "25", name: "LAVINIA PEREIRA DE SOUZA" },
+        { number: "26", name: "LIVIA PEREIRA DE SOUZA" },
+        { number: "27", name: "LOHRAN ROMUALDO MENDES DA SILVA" },
+        { number: "28", name: "LUIS MIGUEL GONCALVES DA SILVA" },
+        { number: "29", name: "MARCELA ROBERTO DE OLIVEIRA" },
+        { number: "31", name: "MATHEUS TURCHETTO" },
+        { number: "32", name: "OMRAN RASEKH" },
+        { number: "33", name: "PRISCILLA VITORIA MENDES DE OLIVEIRA" },
+        { number: "36", name: "SARAH VITORIA ALVES OLIVEIRA" },
+        { number: "37", name: "YURI GABRIEL DE MORAES PONGOLINO" },
+        { number: "38", name: "ZAYN AL ABIDIN RASULI" },
+        { number: "39", name: "ARTHUR COHEN BARRETO" },
+        { number: "40", name: "ISABELLA DOS SANTOS SALDANHA" },
+        { number: "41", name: "MIGUEL MARTINS DE ASSIS" },
+        { number: "42", name: "ALICE CARVALHO" },
+        { number: "43", name: "AMANDA PASSOS DE ALMEIDA" },
+        { number: "44", name: "ANA JULIA MENEZES DA SILVA" },
+        { number: "45", name: "HENRIQUE ROCHA CARVALHAL" }
+    ],
+    "8º Ano B": [
+        { number: "2",  name: "ANA CLARA GONCALVES TORRES LOYOLA" },
+        { number: "3",  name: "ANNA BEATRIZ SANTIAGO DA SILVA" },
+        { number: "6",  name: "ELIAS SILVA DE LIMA" },
+        { number: "7",  name: "EVERTON HENRIQUE CARMO RODRIGUES" },
+        { number: "9",  name: "GABRIELA VITORIA SEVERA LINS" },
+        { number: "12", name: "JULIO CESAR ALVES DOS SANTOS" },
+        { number: "14", name: "LUAN VENITES BALBINO" },
+        { number: "17", name: "MARIA EDUARDA FELIX DA SILVA" },
+        { number: "18", name: "MONIQUE RIJO COSTA" },
+        { number: "19", name: "MUNIQUE CRISTINA LUCAS" },
+        { number: "20", name: "NICOLAS PENTEADO" },
+        { number: "23", name: "PAULO CELSO DA COSTA JUNIOR" },
+        { number: "24", name: "PEDRO HENRIQUE CARLOS LIMA" },
+        { number: "25", name: "PEDRO HENRIQUE MORAIS AMORIM" },
+        { number: "27", name: "PIETRO RODRIGUES MIRANDA" },
+        { number: "28", name: "RAPHAELLY APARECIDA MARINHO DE OLIVEIRA" },
+        { number: "29", name: "RENAN LEANDRO RODRIGUES VICENTE" },
+        { number: "33", name: "WENDELL RAFAEL DE JESUS LESSA" },
+        { number: "34", name: "WILHAN KENJI ANTONIO" },
+        { number: "40", name: "JENNYFER VITORIA BASILIO GOMES" },
+        { number: "41", name: "THAYNA SEABRA DE OLIVEIRA DO NASCIMENTO" },
+        { number: "46", name: "SOPHIA MENEZES DE ARAUJO" },
+        { number: "47", name: "VITORIA MENEZES BRANDAO" },
+        { number: "49", name: "LORENA ALEXANDRE SANTOS DA SILVA" },
+        { number: "50", name: "MANUELLA DE MORAES SOUZA" },
+        { number: "51", name: "VITORIA JOLIE RODRIGUES RAPOSO" },
+        { number: "52", name: "RAQUEL BARGAS TAVARES DOS SANTOS" },
+        { number: "53", name: "RODOLFO RAFAEL GOLZENLEUCHTER MORENO JUNIOR" },
+        { number: "54", name: "ANTONIO CARLOS CAMPOS NETO" }
+    ]
+};
+
+/* ============================================================
+   QUESTÕES DE MÚLTIPLA ESCOLHA (com imagens)
+   ============================================================ */
+const questions = [
+    {
+        id: 1, type: "multipla",
+        question: "Maria, aluna do 8º ano, estava ajudando a mãe a preparar o jantar. Sua mãe pediu que ela separasse alimentos ricos em proteínas para uma refeição nutritiva. Sabe-se que as proteínas são macronutrientes essenciais ao organismo, responsáveis principalmente pela construção e reparação de tecidos. Com base nisso, qual dos grupos de alimentos abaixo seria a melhor escolha?",
+        image: "https://img.freepik.com/fotos-gratis/alimentos-ricos-em-proteinas-na-mesa_23-2148520369.jpg",
+        options: [
+            { text: "Arroz branco, batata e macarrão, pois são ricos em carboidratos que fornecem energia para o corpo.", correct: false },
+            { text: "Feijão, carne bovina e ovos, pois são fontes ricas em proteínas necessárias para a construção e reparação dos tecidos.", correct: true },
+            { text: "Azeite de oliva, manteiga e abacate, pois contêm gorduras que fornecem energia e participam da formação de hormônios.", correct: false },
+            { text: "Laranja, mamão e abacaxi, pois são frutas ricas em vitamina C que auxiliam no processo de cicatrização.", correct: false }
+        ]
+    },
+    {
+        id: 2, type: "multipla",
+        question: "Em uma campanha de saúde escolar, o médico orientou os alunos sobre a importância do consumo adequado de vitamina D. Ele explicou que essa vitamina é fundamental para o organismo humano e que sua deficiência pode causar problemas graves de desenvolvimento ósseo. Considerando os conhecimentos sobre micronutrientes estudados em sala, qual é a principal função da vitamina D no organismo e como ela pode ser obtida?",
+        image: "https://img.freepik.com/fotos-gratis/conceito-de-vitamina-d_23-2148521400.jpg",
+        options: [
+            { text: "A vitamina D auxilia na absorção do ferro e na formação de colágeno; pode ser obtida pelo consumo de laranja, acerola e outros cítricos.", correct: false },
+            { text: "A vitamina D controla a absorção de cálcio e fósforo, sendo essencial para a formação dos ossos e dentes; pode ser obtida pela exposição da pele ao sol e pelo consumo de gema de ovo e leite.", correct: true },
+            { text: "A vitamina D é fundamental para a coagulação sanguínea; é obtida pelo consumo de vegetais verdes escuros e óleos vegetais.", correct: false },
+            { text: "A vitamina D protege as células contra radicais livres; suas fontes são os óleos vegetais, nozes e germe de trigo.", correct: false }
+        ]
+    },
+    {
+        id: 3, type: "multipla",
+        question: "João foi ao supermercado com sua avó e ficou curioso ao ver selos de alerta em algumas embalagens. A ANVISA determinou, desde outubro de 2022, que alimentos com determinados nutrientes acima de níveis preestabelecidos devem apresentar selos com a indicação 'Alto em' em suas embalagens. Qual alternativa descreve corretamente o que esses selos indicam e qual nutriente mineral, quando consumido em excesso, pode elevar a pressão sanguínea?",
+        image: "https://www.alphagroup.com.br/wp-content/uploads/2022/11/novas-regras-de-rotulagem-de-alimentos.jpg",
+        options: [
+            { text: "Os selos indicam que o alimento é enriquecido e recomendado para crianças; o ferro em excesso eleva a pressão sanguínea.", correct: false },
+            { text: "Os selos indicam que o alimento é orgânico e livre de agrotóxicos; a vitamina C em excesso causa hipertensão.", correct: false },
+            { text: "Os selos indicam que o alimento possui alto teor de algum nutriente que pode ser prejudicial quando consumido em excesso, como o sódio, que em excesso pode elevar a pressão sanguínea.", correct: true },
+            { text: "Os selos indicam a data de validade do produto; o cálcio em excesso é o responsável pelo aumento da pressão arterial.", correct: false }
+        ]
+    },
+    /* --- DISSERTATIVA 1 (após q3) --- inserida pelo renderizador --- */
+    {
+        id: "d1", type: "dissertativa",
+        question: "Com base no que você estudou sobre macronutrientes e micronutrientes, explique a diferença entre esses dois grupos e cite a função de pelo menos um nutriente de cada grupo no organismo humano.",
+        image: "https://img.freepik.com/fotos-gratis/alimentos-saudaveis-com-vitaminas-e-minerais_23-2148561933.jpg"
+    },
+    {
+        id: 4, type: "multipla",
+        question: "Durante uma aula de Ciências, a professora apresentou o Guia Alimentar para a População Brasileira, publicado pelo Ministério da Saúde em 2014, que classifica os alimentos de acordo com o tipo e o nível de processamento. Ana separou os seguintes alimentos: banana, arroz, iogurte industrializado com sabor de morango, queijo prato e feijão seco. Qual classificação está correta segundo o Guia Alimentar?",
+        image: "https://www.retoedu.com.br/wp-content/uploads/2022/08/Alimentos-In-Natura-Processados-E-Ultraprocessados.jpg",
+        options: [
+            { text: "Banana e feijão seco são processados; arroz é in natura; queijo prato é ultraprocessado.", correct: false },
+            { text: "Banana é in natura; arroz e feijão seco são minimamente processados; queijo prato é processado; iogurte industrializado com sabor é ultraprocessado.", correct: true },
+            { text: "Todos os alimentos são in natura, pois todos são obtidos da natureza sem alterações significativas para o consumidor.", correct: false },
+            { text: "Banana é minimamente processada; arroz é processado; queijo prato e iogurte são in natura porque contêm leite.", correct: false }
+        ]
+    },
+    {
+        id: 5, type: "multipla",
+        question: "Pedro leu a lista de ingredientes de duas embalagens no supermercado. O PRODUTO 1 tinha apenas: 'feijão carioca'. O PRODUTO 2 apresentava: 'farinha de trigo enriquecida com ferro e ácido fólico, açúcar, gordura vegetal, sal, glúten, conservadores: propionato de cálcio e sorbato de potássio, emulsificantes: lecitina de soja, aromatizantes e corantes artificiais'. Com base no Guia Alimentar para a População Brasileira, qual é a classificação e a orientação de consumo corretas?",
+        image: "https://www.ufsm.br/app/uploads/sites/343/2019/10/rotulos.jpg",
+        options: [
+            { text: "O Produto 1 é ultraprocessado e o Produto 2 é in natura; ambos podem ser consumidos sem restrições.", correct: false },
+            { text: "O Produto 1 é minimamente processado e o Produto 2 também é minimamente processado, apenas com mais ingredientes para sabor.", correct: false },
+            { text: "O Produto 1 é minimamente processado e deve ser priorizado na alimentação; o Produto 2 é ultraprocessado e deve ser evitado por conter muitos aditivos industriais.", correct: true },
+            { text: "Ambos são processados; o Produto 2 é mais saudável por ter mais ingredientes e, portanto, mais nutrientes variados.", correct: false }
+        ]
+    },
+    {
+        id: 6, type: "multipla",
+        question: "Luísa está fazendo um trabalho sobre alimentação saudável e encontrou em um biscoito recheado as informações: 'gordura trans: 1,2g' e 'gordura saturada: 3,5g (18% VD)'. A sigla VD indica os valores diários recomendados com base em uma dieta de 2000 kcal. Considerando os conhecimentos sobre leitura de rótulos e os efeitos dessas gorduras no organismo, qual alternativa interpreta corretamente essas informações?",
+        image: "https://www.mundoboaforma.com.br/wp-content/uploads/2015/09/rotulo-nutricional.jpg",
+        options: [
+            { text: "A gordura trans presente no biscoito é saudável e não oferece riscos à saúde, pois seu valor diário não foi estabelecido pela ANVISA.", correct: false },
+            { text: "A gordura saturada do biscoito corresponde a 18% do que se recomenda consumir por dia; o consumo excessivo tanto de gordura trans quanto saturada aumenta o risco de doenças do coração.", correct: true },
+            { text: "VD significa 'Valor Desconhecido', indicando que o produto não tem informações nutricionais confiáveis sobre gordura saturada.", correct: false },
+            { text: "A gordura saturada não oferece riscos à saúde em qualquer quantidade, pois está presente naturalmente em alimentos de origem animal.", correct: false }
+        ]
+    },
+    /* --- DISSERTATIVA 2 (após q6) --- inserida pelo renderizador --- */
+    {
+        id: "d2", type: "dissertativa",
+        question: "Imagine que você vai ao supermercado e precisa escolher entre dois produtos parecidos. Como a leitura do rótulo pode ajudá-lo a fazer uma escolha mais saudável? Cite pelo menos dois tipos de informação presentes nos rótulos que você levaria em consideração e explique por quê.",
+        image: "https://gepea.com.br/wp-content/uploads/2021/07/tabela-nutricional.jpg"
+    },
+    {
+        id: 7, type: "multipla",
+        question: "A turma do 8º ano leu uma notícia que dizia: 'Segundo dados de 2023, milhões de brasileiros ainda vivem em situação de insegurança alimentar grave.' A professora aproveitou para discutir o conceito de segurança alimentar definido pela Lei nº 11.346/2006, que criou o Sistema Nacional de Segurança Alimentar e Nutricional. Qual alternativa define corretamente esse conceito?",
+        image: "https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/alimentacao_saudavel.jpg",
+        options: [
+            { text: "Segurança alimentar significa comer apenas alimentos in natura e evitar todos os industrializados para manter a saúde do organismo.", correct: false },
+            { text: "Segurança alimentar é a realização do direito de todos ao acesso regular e permanente a alimentos de qualidade, em quantidade suficiente, sem comprometer o acesso a outras necessidades essenciais.", correct: true },
+            { text: "Segurança alimentar refere-se apenas à higiene dos alimentos durante o preparo, evitando contaminações e intoxicações alimentares.", correct: false },
+            { text: "Segurança alimentar é a capacidade de um país produzir alimentos suficientes para exportação, garantindo a economia nacional.", correct: false }
+        ]
+    },
+    {
+        id: 8, type: "multipla",
+        question: "Carlos percebeu que ao pular o almoço sentiu uma fome intensa no final da tarde. Ao comentar com seu pai, descobriu que ele havia passado semanas sem se alimentar adequadamente por dificuldades financeiras, sentindo fraqueza e cansaço constante. A professora explicou que esses dois casos representam tipos diferentes de fome. Qual alternativa diferencia corretamente a fome aguda da fome crônica?",
+        image: "https://img.freepik.com/fotos-gratis/mulher-com-fome-apontando-para-o-estomago_23-2148262499.jpg",
+        options: [
+            { text: "A fome aguda é causada apenas por doenças graves, enquanto a fome crônica ocorre normalmente em todas as pessoas após a prática de exercícios físicos intensos.", correct: false },
+            { text: "A fome aguda é passageira, surgindo entre as refeições com sensação urgente de se alimentar; a fome crônica é permanente, causando deficiências nutricionais que afetam a saúde, o crescimento e a qualidade de vida.", correct: true },
+            { text: "A fome crônica dura apenas alguns dias e pode ser resolvida com uma única refeição completa; a fome aguda é uma condição permanente de desnutrição.", correct: false },
+            { text: "Tanto a fome aguda quanto a fome crônica têm as mesmas causas e consequências para o organismo e são tratadas da mesma maneira.", correct: false }
+        ]
+    },
+    {
+        id: 9, type: "multipla",
+        question: "Durante uma visita ao mercado, a professora pediu aos alunos que identificassem os aditivos alimentares no rótulo de um pão de forma industrializado. A lista de ingredientes incluía: 'propionato de cálcio, lecitina de soja, ácido ascórbico e sorbitol'. Com base nos conceitos de aditivos alimentares estudados, qual é a função do propionato de cálcio e da lecitina de soja, respectivamente?",
+        image: "https://centraldalimentos.com.br/wp-content/uploads/2021/12/conservantes.jpg",
+        options: [
+            { text: "O propionato de cálcio é um corante que dá a cor dourada ao pão; a lecitina de soja é um aromatizante que confere sabor característico ao produto.", correct: false },
+            { text: "O propionato de cálcio é um conservador que prolonga a vida útil do produto; a lecitina de soja é um emulsificante que permite misturar ingredientes que normalmente não se misturariam, como água e gordura.", correct: true },
+            { text: "O propionato de cálcio é um espessante que aumenta a viscosidade da massa do pão; a lecitina de soja é um antioxidante que retarda a deterioração do produto.", correct: false },
+            { text: "O propionato de cálcio é um adoçante artificial que substitui o açúcar; a lecitina de soja é um umectante que evita o ressecamento do pão.", correct: false }
+        ]
+    },
+    /* --- DISSERTATIVA 3 (após q9) --- inserida pelo renderizador --- */
+    {
+        id: "d3", type: "dissertativa",
+        question: "O Brasil registrou avanços importantes no combate à insegurança alimentar nos últimos anos. Explique o que é insegurança alimentar e cite pelo menos dois fatores que contribuem para que ela ocorra. Em sua resposta, relacione esses fatores com o conceito de vulnerabilidade social estudado em sala.",
+        image: "https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/fome_zero.jpg"
+    },
+    {
+        id: 10, type: "multipla",
+        question: "Em 2024, o governo brasileiro atualizou a composição da cesta básica nacional, determinando que ela não pode mais conter itens ultraprocessados, priorizando alimentos in natura e minimamente processados. Entre os grupos incluídos estão: feijões e leguminosas, cereais, raízes, frutas, legumes, carnes, ovos, leite, queijos e castanhas. Considerando os conteúdos sobre nutrição e segurança alimentar, qual é o principal objetivo dessa mudança?",
+        image: "https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/cesta_basica_saudavel.jpg",
+        options: [
+            { text: "Reduzir os custos de distribuição, tornando os alimentos mais baratos para aumentar o lucro das empresas fornecedoras da cesta básica.", correct: false },
+            { text: "Garantir que famílias em situação de vulnerabilidade alimentar tenham acesso a uma alimentação variada e nutricionalmente adequada, combatendo a insegurança alimentar com qualidade.", correct: true },
+            { text: "Incentivar a indústria alimentícia nacional a produzir mais alimentos processados para exportação e geração de empregos no setor.", correct: false },
+            { text: "Estabelecer que apenas pessoas em situação de pobreza extrema têm direito à alimentação saudável, priorizando alimentos de maior durabilidade.", correct: false }
+        ]
+    }
+];
+
+/* ============================================================
+   GABARITO (apenas múltipla escolha)
+   ============================================================ */
+const correctAnswersMap = {};
+questions.filter(q => q.type === "multipla").forEach(q => {
+    q.options.forEach((opt, idx) => {
+        if (opt.correct) correctAnswersMap[`q${q.id}`] = String.fromCharCode(65 + idx);
+    });
+});
+
+/* ============================================================
+   UTILITÁRIOS
+   ============================================================ */
+function showResult(msg, type) {
+    const el = document.getElementById("resultMessage");
+    el.innerHTML = msg;
+    el.className = "result " + type;
+    el.style.display = "block";
+    el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+function hideResult() { document.getElementById("resultMessage").style.display = "none"; }
+
+/* ============================================================
+   ENVIO PARA O GOOGLE APPS SCRIPT
+   ============================================================ */
+async function sendToGoogle(dataObj) {
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: JSON.stringify(dataObj) });
+        if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+        const json = await response.json();
+        if (json.status === "success") {
+            showResult("<strong>Sucesso!</strong> Dados enviados e registrados.", "success");
+            document.getElementById("submitBtn").disabled = true;
+        } else {
+            showResult("<strong>Erro no servidor:</strong> " + (json.message || "Resposta inesperada."), "error");
+        }
+    } catch (e) {
+        showResult("<strong>Erro de Conexão:</strong> " + e.message + ". Verifique se o Apps Script está publicado como 'Qualquer pessoa'.", "error");
+    }
+}
+
+/* ============================================================
+   RENDERIZAÇÃO
+   ============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+    const select   = document.getElementById("studentName");
+    const num      = document.getElementById("studentNumber");
+    const grade    = document.getElementById("studentGrade");
+    const container = document.getElementById("questionsContainer");
+    document.getElementById("currentDate").value = new Date().toLocaleDateString('pt-BR');
+
+    // Alunos
+    Object.keys(students).forEach(turma => {
+        const group = document.createElement("optgroup");
+        group.label = turma;
+        students[turma].forEach(s => {
+            const opt = document.createElement("option");
+            opt.value = `${s.number}|${turma}|${s.name}`;
+            opt.textContent = s.name;
+            group.appendChild(opt);
+        });
+        select.appendChild(group);
+    });
+
+    // Contadores para numeração sequencial
+    let mcCount = 0;   // múltipla escolha
+    let disCount = 0;  // dissertativa
+
+    // Separadores
+    let lastType = null;
+
+    questions.forEach(q => {
+
+        // Separador de seção quando muda de tipo
+        if (lastType !== null && lastType !== q.type) {
+            const div = document.createElement("div");
+            div.className = "section-divider";
+            div.innerHTML = q.type === "multipla"
+                ? "<span>✏️ Questões de Múltipla Escolha</span>"
+                : "<span>📝 Questão Dissertativa</span>";
+            container.appendChild(div);
+        } else if (lastType === null) {
+            const div = document.createElement("div");
+            div.className = "section-divider";
+            div.innerHTML = "<span>✏️ Questões de Múltipla Escolha</span>";
+            container.appendChild(div);
+        }
+        lastType = q.type;
+
+        /* ---------- MÚLTIPLA ESCOLHA ---------- */
+        if (q.type === "multipla") {
+            mcCount++;
+            const block = document.createElement("div");
+            block.className = "question-container";
+            block.id = "q" + q.id;
+
+            // Enunciado
+            const p = document.createElement("p");
+            p.className = "question";
+            p.innerHTML = `<strong>${mcCount}.</strong> ${q.question}`;
+            block.appendChild(p);
+
+            // Imagem entre enunciado e alternativas
+            if (q.image) {
+                const img = document.createElement("img");
+                img.src = q.image;
+                img.alt = `Imagem da questão ${mcCount}`;
+                img.className = "question-image";
+                img.onerror = function() { this.style.display = "none"; };
+                block.appendChild(img);
+            }
+
+            // Alternativas
+            const optBox = document.createElement("div");
+            optBox.className = "options";
+            q.options.forEach((opt, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                const div = document.createElement("div");
+                div.className = "option";
+                div.dataset.question = q.id;
+                div.dataset.letter = letter;
+                div.textContent = opt.text;
+                div.onclick = () => {
+                    optBox.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+                    div.classList.add("selected");
+                    hideResult();
+                };
+                optBox.appendChild(div);
+            });
+            block.appendChild(optBox);
+            container.appendChild(block);
+        }
+
+        /* ---------- DISSERTATIVA ---------- */
+        else if (q.type === "dissertativa") {
+            disCount++;
+            const block = document.createElement("div");
+            block.className = "dissertativa-container";
+            block.id = "d" + disCount;
+
+            const label = document.createElement("div");
+            label.className = "dissertativa-label";
+            label.textContent = `Questão Dissertativa ${disCount}`;
+            block.appendChild(label);
+
+            const p = document.createElement("p");
+            p.className = "dissertativa-question";
+            p.innerHTML = `<strong>Q${disCount}.</strong> ${q.question}`;
+            block.appendChild(p);
+
+            // Imagem entre enunciado e campo de resposta
+            if (q.image) {
+                const img = document.createElement("img");
+                img.src = q.image;
+                img.alt = `Imagem dissertativa ${disCount}`;
+                img.className = "dissertativa-image";
+                img.onerror = function() { this.style.display = "none"; };
+                block.appendChild(img);
+            }
+
+            const rl = document.createElement("div");
+            rl.className = "resposta-label";
+            rl.textContent = "Sua resposta:";
+            block.appendChild(rl);
+
+            const ta = document.createElement("textarea");
+            ta.className = "resposta-field";
+            ta.id = `resp_d${disCount}`;
+            ta.placeholder = "Escreva sua resposta aqui...";
+            ta.oninput = hideResult;
+            block.appendChild(ta);
+
+            container.appendChild(block);
+        }
+    });
+
+    // Seleção de aluno
+    select.onchange = () => {
+        if (!select.value) { num.value = ""; grade.value = ""; return; }
+        const [n, g] = select.value.split("|");
+        num.value = n; grade.value = g;
+        hideResult();
+    };
+
+    // Limpar
+    document.getElementById("clearBtn").onclick = () => {
+        document.querySelectorAll(".option.selected").forEach(o => o.classList.remove("selected"));
+        document.querySelectorAll(".resposta-field").forEach(t => t.value = "");
+        hideResult();
+    };
+});
+
+/* ============================================================
+   ENVIO FINAL
+   ============================================================ */
+document.getElementById("submitBtn").onclick = async () => {
+    hideResult();
+
+    const select = document.getElementById("studentName");
+    if (!select.value) { showResult("Selecione seu nome.", "error"); return; }
+
+    const [studentNumber, studentGrade, studentName] = select.value.split("|");
+    const data = { studentName, studentNumber, studentGrade };
+
+    const multiplas = questions.filter(q => q.type === "multipla");
+    const dissertativas = questions.filter(q => q.type === "dissertativa");
+
+    // Verificar múltipla escolha
+    let correct = 0;
+    let allAnswered = true;
+    for (let q of multiplas) {
+        const selected = document.querySelector(`#q${q.id} .option.selected`);
+        if (!selected) { allAnswered = false; break; }
+        const letter = selected.dataset.letter;
+        data[`q${q.id}`] = letter;
+        if (letter === correctAnswersMap[`q${q.id}`]) correct++;
+    }
+    if (!allAnswered) { showResult("Responda todas as questões de múltipla escolha antes de enviar.", "error"); return; }
+
+    // Coletar dissertativas
+    let disCount = 0;
+    for (let q of dissertativas) {
+        disCount++;
+        const ta = document.getElementById(`resp_d${disCount}`);
+        if (!ta || ta.value.trim() === "") {
+            showResult(`Responda a questão dissertativa ${disCount} antes de enviar.`, "error");
+            return;
+        }
+        data[`dissertativa${disCount}`] = ta.value.trim();
+    }
+
+    data.finalScore = correct;
+    data.percentage = (correct / multiplas.length) * 100;
+
+    showResult(`Calculando nota... você acertou ${correct}/${multiplas.length} nas questões objetivas. Enviando...`, "success");
+    await sendToGoogle(data);
+};
+</script>
+</body>
+</html>
